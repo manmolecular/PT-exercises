@@ -43,8 +43,12 @@ class SSHtransport():
             sftp.get(file_remote, file_local)
             sftp.close()
 
+# Get unique transport of some class
 def get_transport(transport_name, host = default_host, port = default_port, login = default_login, password = default_password):
-    return transport_name(host, port, login, password);
+    try:
+        return transport_name(host, port, login, password);
+    except:
+        TransportError('Unknown transport')
         
 def main():
     base_client = get_transport(SSHtransport)
