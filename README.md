@@ -29,3 +29,7 @@ ssh root@localhost -p 22022
 ```
 sudo pip3 install paramiko
 ```
+# Pytest
+```
+pytest main-project/unit_test.py
+```
