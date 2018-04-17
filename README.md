@@ -1,7 +1,8 @@
 # Structure
 - `img-ubuntu-python` - docker with ubuntu and python3  
 - `img-ubuntu-sshd` - docker with ubuntu and sshd  
-- `project` - code  
+- `main-project` - **actual code**
+- `tmp-code` - code from lesson and for learning
 # Build containers
 For python:  
 ```
@@ -21,4 +22,8 @@ Connect:
 ```
 ssh root@localhost -p 22022
 # password: pwd
+```
+# Paramiko
+```
+sudo pip3 install paramiko
 ```
