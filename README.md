@@ -1,3 +1,7 @@
+# Structure
+`img-ubuntu-python` - docker with ubuntu and python3
+`img-ubuntu-sshd` - docker with ubuntu and sshd
+`project` - code
 # Build containers
 For python:  
 ```
