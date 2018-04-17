@@ -49,7 +49,7 @@ def get_transport(transport_name, host = default_host, port = default_port, logi
         return transport_name(host, port, login, password);
     except:
         TransportError('Unknown transport')
-        
+
 def main():
     base_client = get_transport(SSHtransport)
     print( base_client.exec('ls') )
