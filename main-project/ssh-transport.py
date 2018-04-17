@@ -14,17 +14,21 @@ class SSHtransport():
     def __del__(self):
         self.client.close()
 
-    def exec(self, command = 'uname -a'):
+    def exec(self, command = 'ls -a'):
         stdin, stdout, stderr = self.client.exec_command(command)
         return stdout.read()
 
-    def get_file(self, path):
-        # work on it
-        pass
-
+    def get_file(self, file_name = 'file', remote_path = './', local_path = './'):
+        file_remote = remote_path + file_name
+        file_local = local_path + file_name
+        sftp = self.client.open_sftp()
+        sftp.get(file_remote, file_local)
+        sftp.close()
+        
 def main():
     base_client = SSHtransport()
-    print(base_client.exec())
+    print( base_client.exec('uname -a') )
+    base_client.get_file('getme')
 
 if __name__ == "__main__":
     main()
