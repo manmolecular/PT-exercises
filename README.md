@@ -1,7 +1,9 @@
 # Structure
+### Main code:  
+- `main-project` - actual code
+### Other:  
 - `img-ubuntu-python` - docker with ubuntu and python3  
 - `img-ubuntu-sshd` - docker with ubuntu and sshd  
-- `main-project` - **actual code**
 - `tmp-code` - code from lesson and for learning
 # Build containers
 For python:  
