@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # SSH transport class based on PT-security lectures
 import paramiko
-import traceback
 
 defaults = {'host': 'localhost', 'port':22022, 'login':'root', 'password':'pwd'}
 transport_names = ['SSHtransport']
@@ -9,19 +8,16 @@ transport_names = ['SSHtransport']
 # Classes for error handling
 class UnknownTransport(Exception):
     def __init__(self, error_args):
-        print(error_args)
         Exception.__init__(self, 'UnknownTransport {}'.format(error_args))
         self.error_args = error_args
 
 class TransportError(Exception):
     def __init__(self, error_args):
-        print(error_args)
         Exception.__init__(self, 'TransportError {}'.format(error_args))
         self.error_args = error_args
 
 class TransportConnectionError(Exception):
     def __init__(self, error_args):
-        print(error_args)
         Exception.__init__(self, 'TransportConnectionError {}'.format(error_args))
         self.error_args = error_args
 
@@ -29,7 +25,7 @@ class TransportConnectionError(Exception):
 class SSHtransport():
     def __init__(self, host, port, login, password):
         self.client = paramiko.SSHClient()
-        self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy()) 
+        self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         try:
             self.client.connect(hostname = host, username = login, password = password, port = port)
         except:
@@ -65,8 +61,8 @@ def get_transport(transport_name, host, port, login, password):
 
 def main():
     base_client = get_transport('SSHtransport', 'localhost', '22022', 'root', 'pwd')
-    print( base_client.exec('ls -a') )
-    base_client.get_file('get2me')
+    base_client.exec('ls -a')
+    base_client.get_file('getme')
 
 if __name__ == "__main__":
     main()
