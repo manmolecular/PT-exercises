@@ -62,7 +62,7 @@ def get_transport(transport_name, host, port, login, password):
 def main():
     base_client = get_transport('SSHtransport', 'localhost', '22022', 'root', 'pwd')
     base_client.exec('ls -a')
-    base_client.get_file('getme')
+    # base_client.get_file('getme')
 
 if __name__ == "__main__":
     main()
