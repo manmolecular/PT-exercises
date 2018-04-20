@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # SSH transport class based on PT-security lectures
 import paramiko
+import socket
 
 defaults = {'host': 'localhost', 'port':22022, 'login':'root', 'password':'pwd'}
 transport_names = ['SSHtransport']
@@ -28,8 +29,16 @@ class SSHtransport():
         self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         try:
             self.client.connect(hostname = host, username = login, password = password, port = port)
+        except  paramiko.BadHostKeyException:
+            raise TransportConnectionError('paramiko: BadHostKeyException')
+        except  paramiko.AuthenticationException:
+            raise TransportConnectionError('paramiko: AuthenticationException')
+        except paramiko.SSHException:
+            raise TransportConnectionError('paramiko: SSHException')
+        except socket.error:
+            raise TransportConnectionError('paramiko: socket.error')
         except:
-            raise TransportConnectionError('{connection refused}')
+            raise TransportConnectionError('connection refused by unknown reason')
             
     def __del__(self):
         self.client.close()
@@ -49,7 +58,7 @@ class SSHtransport():
         try:
             sftp.stat(file_remote)
         except:
-            raise TransportError('{file doesnt exist}')
+            raise TransportError('file doesnt exist')
         sftp.get(file_remote, file_local)
         sftp.close()
 
