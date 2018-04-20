@@ -1,7 +1,7 @@
 # Structure
 ### Main code:  
-- `main-project/ssh_transport.py` - *actual code*
-- `main-project/unit_test.py` - *pytest tests*
+- `src/ssh_transport.py` - *actual code*
+- `src/tests/unit_test.py` - *pytest tests*
 ### Other:  
 - `img-ubuntu-python` - docker with ubuntu and python3  
 - `img-ubuntu-sshd` - docker with ubuntu and sshd  
