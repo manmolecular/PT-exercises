@@ -11,7 +11,10 @@ def test_get_transport_exc():
 def test_init_exc():
     SSHtransport('localhost', '22022', 'root', 'pwd')
     with pytest.raises(TransportConnectionError):
-        SSHtransport('localhot', '22022', 'root', 'pwd')
+        SSHtransport('_unknownhost_', '22022', 'root', 'pwd')
+        SSHtransport('localhost', '_unknownport_', 'root', 'pwd')
+        SSHtransport('localhot', '22022', '_unknownuser_', 'pwd')
+        SSHtransport('localhot', '22022', 'root', '_unknownpass_')
 
 def test_exec_exc():
     SSHtransport('localhost', '22022', 'root', 'pwd').exec('ls')
