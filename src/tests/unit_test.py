@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Tests for SSH transport class based on PT-security lectures
-from ssh_transport import *
+from transports import *
 import pytest
 
 def test_get_transport_exc():

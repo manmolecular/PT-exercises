@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 # SSH transport class based on PT-security lectures
+from get_config import get_config
 import paramiko
 import socket
 import json
 
-with open('config.json', 'r') as f:
-    file_config = json.load(f)
-
-defaults = {
-        'host': file_config['host'], 
-        'port':file_config['transports']['SSH']['port'], 
-        'login':file_config['transports']['SSH']['login'], 
-        'password':file_config['transports']['SSH']['password']
-    }
 transport_names = ['SSHtransport']
+
+_json_config = get_config()
+_SSHdefaults = {
+        'host': _json_config['host'], 
+        'port':_json_config['transports']['SSH']['port'], 
+        'login':_json_config['transports']['SSH']['login'], 
+        'password':_json_config['transports']['SSH']['password']
+    }
 
 # Classes for error handling
 class UnknownTransport(Exception):
@@ -72,15 +72,16 @@ class SSHtransport():
         sftp.close()
 
 # Get unique transport of some class
-def get_transport(transport_name, host, port, login, password):
+def get_transport(transport_name, host = _SSHdefaults['host'], port = _SSHdefaults['port'], 
+    login = _SSHdefaults['login'], password = _SSHdefaults['password']):
     if transport_name not in transport_names:
         raise UnknownTransport({'transport_name':transport_name})
     return globals()[transport_name](host, port, login, password)
 
 def main():
-    pass
-    # base_client = get_transport('SSHtransport', 'localhost', '22022', 'root', 'pwd')
-    # base_client.exec('ls -a')
+    base_client = get_transport('SSHtransport')
+    base_client.exec('ls -a')
+    print(base_client.exec('ls -a'))
     # base_client.get_file('getme')
 
 if __name__ == "__main__":
