@@ -1,6 +1,6 @@
 # Structure
 ### Main code:  
-- `src/ssh_transport.py` - *actual code*
+- `src/transports.py` - *actual code*
 - `src/tests/unit_test.py` - *pytest tests*
 ### Other:  
 - `img-ubuntu-python` - docker with ubuntu and python3  
