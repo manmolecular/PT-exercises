@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # SSH transport class based on PT-security lectures
-from get_config import get_config
+from get_config import *
+from get_db import *
+
 import paramiko
 import socket
 import json
