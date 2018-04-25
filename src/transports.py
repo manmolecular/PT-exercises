@@ -2,8 +2,17 @@
 # SSH transport class based on PT-security lectures
 import paramiko
 import socket
+import json
 
-defaults = {'host': 'localhost', 'port':22022, 'login':'root', 'password':'pwd'}
+with open('config.json', 'r') as f:
+    file_config = json.load(f)
+
+defaults = {
+        'host': file_config['host'], 
+        'port':file_config['transports']['SSH']['port'], 
+        'login':file_config['transports']['SSH']['login'], 
+        'password':file_config['transports']['SSH']['password']
+    }
 transport_names = ['SSHtransport']
 
 # Classes for error handling
@@ -69,8 +78,9 @@ def get_transport(transport_name, host, port, login, password):
     return globals()[transport_name](host, port, login, password)
 
 def main():
-    base_client = get_transport('SSHtransport', 'localhost', '22022', 'root', 'pwd')
-    base_client.exec('ls -a')
+    pass
+    # base_client = get_transport('SSHtransport', 'localhost', '22022', 'root', 'pwd')
+    # base_client.exec('ls -a')
     # base_client.get_file('getme')
 
 if __name__ == "__main__":
