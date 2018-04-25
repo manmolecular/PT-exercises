@@ -13,7 +13,12 @@ _SSHdefaults = {
         'login':_json_config['transports']['SSH']['login'], 
         'password':_json_config['transports']['SSH']['password']
     }
-transport_names = {
+_get_file_defaults = {
+        'file_name': '',
+        'remote_path': './',
+        'local_path': './'
+    }
+_transport_names = {
         'SSH':'SSHtransport'
     }
 
@@ -60,7 +65,8 @@ class SSHtransport():
         stdin, stdout, stderr = self.client.exec_command(command)
         return stdout.read()
 
-    def get_file(self, file_name = '', remote_path = './', local_path = './'):
+    def get_file(self, file_name = _get_file_defaults['file_name'], 
+        remote_path = _get_file_defaults['remote_path'], local_path = _get_file_defaults['local_path']):
         if not file_name:
             raise TransportError({'file_name':file_name})
         file_remote = remote_path + file_name
@@ -76,15 +82,15 @@ class SSHtransport():
 # Get unique transport of some class
 def get_transport(transport_name, host = _SSHdefaults['host'], port = _SSHdefaults['port'], 
     login = _SSHdefaults['login'], password = _SSHdefaults['password']):
-    if transport_name not in transport_names:
+    if transport_name not in _transport_names:
         raise UnknownTransport({'transport_name':transport_name})
-    return globals()[transport_names[transport_name]](host, port, login, password)
+    return globals()[_transport_names[transport_name]](host, port, login, password)
 
 def main():
     base_client = get_transport('SSH')
     base_client.exec('ls -a')
     print(base_client.exec('ls -a'))
-    # base_client.get_file('getme')
+    #base_client.get_file('getme')
 
 if __name__ == "__main__":
     main()
