@@ -23,19 +23,19 @@ _transport_names = {
     }
 
 # Classes for error handling
-class UnknownTransport(Exception):
-    def __init__(self, error_args):
-        Exception.__init__(self, 'UnknownTransport {}'.format(error_args))
-        self.error_args = error_args
-
 class TransportError(Exception):
     def __init__(self, error_args):
         Exception.__init__(self, 'TransportError {}'.format(error_args))
         self.error_args = error_args
 
-class TransportConnectionError(Exception):
+class UnknownTransport(TransportError):
     def __init__(self, error_args):
-        Exception.__init__(self, 'TransportConnectionError {}'.format(error_args))
+        TransportError.__init__(self, error_args)
+        self.error_args = error_args
+
+class TransportConnectionError(TransportError):
+    def __init__(self, error_args):
+        TransportError.__init__(self, error_args)
         self.error_args = error_args
 
 # SSH transport class

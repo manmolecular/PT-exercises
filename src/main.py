@@ -14,7 +14,7 @@ def import_scripts():
 def main():
     import_scripts()
 
-    base_client = get_transport('SSH')
+    base_client = get_transport('S1SH')
     base_client.exec('ls -a')
     print(base_client.exec('ls -a'))
     #base_client.get_file('getme')
