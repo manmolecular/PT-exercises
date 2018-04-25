@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# Get configuration from json file
 import json
 
 _json_config = None

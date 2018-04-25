@@ -5,14 +5,16 @@ import paramiko
 import socket
 import json
 
-transport_names = ['SSHtransport']
-
+# Some helpful dicts for using
 _json_config = get_config()
 _SSHdefaults = {
         'host': _json_config['host'], 
         'port':_json_config['transports']['SSH']['port'], 
         'login':_json_config['transports']['SSH']['login'], 
         'password':_json_config['transports']['SSH']['password']
+    }
+transport_names = {
+        'SSH':'SSHtransport'
     }
 
 # Classes for error handling
@@ -76,10 +78,10 @@ def get_transport(transport_name, host = _SSHdefaults['host'], port = _SSHdefaul
     login = _SSHdefaults['login'], password = _SSHdefaults['password']):
     if transport_name not in transport_names:
         raise UnknownTransport({'transport_name':transport_name})
-    return globals()[transport_name](host, port, login, password)
+    return globals()[transport_names['SSH']](host, port, login, password)
 
 def main():
-    base_client = get_transport('SSHtransport')
+    base_client = get_transport('SSH')
     base_client.exec('ls -a')
     print(base_client.exec('ls -a'))
     # base_client.get_file('getme')
