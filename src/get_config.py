@@ -4,7 +4,7 @@ import json
 import os.path
 
 _json_config = None
-_config_name = 'config.json'
+_config_name = 'configs/config.json'
 
 def get_full_path():
     my_path = os.path.abspath(os.path.dirname(__file__))

@@ -5,7 +5,7 @@ import sqlite3
 import os.path
 
 _json_db = None
-_db_name = 'controls.json'
+_db_name = 'configs/controls.json'
 
 def get_full_path():
     my_path = os.path.abspath(os.path.dirname(__file__))
