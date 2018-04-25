@@ -1,7 +1,9 @@
 # Structure
 ### Main code:  
-- `src/transports.py` - *actual code*
-- `src/tests/unit_test.py` - *pytest tests*
+- `src/transports.py` - *SSH transport class*
+- `src/get_config.py` - *Parsing of json configuration file*
+- `src/main.py` - *Main module*
+- `src/tests/unit_test.py` - *Pytest tests*
 ### Other:  
 - `img-ubuntu-python` - docker with ubuntu and python3  
 - `img-ubuntu-sshd` - docker with ubuntu and sshd  
