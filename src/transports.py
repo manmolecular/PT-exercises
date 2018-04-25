@@ -78,7 +78,7 @@ def get_transport(transport_name, host = _SSHdefaults['host'], port = _SSHdefaul
     login = _SSHdefaults['login'], password = _SSHdefaults['password']):
     if transport_name not in transport_names:
         raise UnknownTransport({'transport_name':transport_name})
-    return globals()[transport_names['SSH']](host, port, login, password)
+    return globals()[transport_names[transport_name]](host, port, login, password)
 
 def main():
     base_client = get_transport('SSH')
