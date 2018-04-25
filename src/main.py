@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-# Main module
+# Main module for scripts calling
 from transports import *
 import os
 import importlib
 
 _scriptdir = 'scripts'
 
+# Import all scripts from folder
 def import_scripts():
     for file in os.listdir('./' + _scriptdir):
             if file.endswith('.py') and file != '__init__.py':
