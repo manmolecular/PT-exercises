@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # Main module
+from transports import *
 import os
 import importlib
-from transports import *
 
 _scriptdir = 'scripts'
 
@@ -16,7 +16,7 @@ def main():
 
     base_client = get_transport('SSH')
     base_client.exec('ls -a')
-    #print(base_client.exec('ls -a'))
+    print(base_client.exec('ls -a'))
     #base_client.get_file('getme')
 
 if __name__ == "__main__":
