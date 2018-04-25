@@ -4,6 +4,7 @@
 - `src/get_config.py` - *Parsing of json configuration file*
 - `src/main.py` - *Main module*
 - `src/tests/unit_test.py` - *Pytest tests*
+- `src/scripts` - *Directory for importing libs*
 ### Other:  
 - `img-ubuntu-python` - docker with ubuntu and python3  
 - `img-ubuntu-sshd` - docker with ubuntu and sshd  
