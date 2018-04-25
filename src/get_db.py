@@ -29,5 +29,3 @@ def create_db():
         curr.execute("INSERT INTO control(id, descr) VALUES(?, ?)", (string[0], string[1]))
     db.commit()
     db.close()
-
-create_db()
