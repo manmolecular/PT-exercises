@@ -1,10 +1,36 @@
 # Structure
+
+```
+PT-exercises/src
+│   __init__.py
+│   get_config.py
+│   get_db.py
+│   main.py
+|   transports.py
+└─── configs
+│   │   config.json
+│   │   controls.json
+|   |   ...
+│   
+└─── scripts
+|   │   __init__.py
+|   │   mdl.py
+|   |   ...
+|
+└─── tests
+    │   __init__.py
+    │   test.py
+    |   ...
+```
+
 ### Main code:  
-- `src/transports.py` - *SSH transport class*
 - `src/get_config.py` - *Parsing of json configuration file*
+- `src/get_db.py` - *Parsing of json configuration file for db*
 - `src/main.py` - *Main module*
-- `src/tests/unit_test.py` - *Pytest tests*
-- `src/scripts` - *Directory for importing libs*
+- `src/transports.py` - *SSH transport class*
+- `src/configs` - *Json configs files*
+- `src/scripts/` - *Directory for importing libs*
+- `src/tests/` - *Pytest tests*
 ### Other:  
 - `img-ubuntu-python` - docker with ubuntu and python3  
 - `img-ubuntu-sshd` - docker with ubuntu and sshd  
