@@ -4,7 +4,8 @@ from transports import *
 import pytest
 
 def test_get_transport_exc():
-    get_transport('SSHtransport', 'localhost', '22022', 'root', 'pwd')
+    get_transport('SSH', 'localhost', '22022', 'root', 'pwd')
+    get_transport('SSH')
     with pytest.raises(UnknownTransport):
         get_transport('', 'localhost', '22022', 'root', 'pwd')
 
