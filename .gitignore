@@ -1,11 +1,12 @@
+# My files
+src/tests/getme
+src/getme
+src/database.db
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-
-# My files
-src/tests/getme
-src/getme
 
 # C extensions
 *.so
