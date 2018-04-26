@@ -2,9 +2,12 @@
 # First test - check file existense
 from get_db import *
 from transports import *
+import os.path
 
+_database = 'database.db'
 _file_name = 'testfile'
 _status = None
+_control_id = 0
 
 try:
     SSHtransport = get_transport('SSH')
@@ -17,5 +20,6 @@ except:
     _status = 2
 
 def main():
-    create_db()
-    add_control(000, _status)
+    if not os.path.isfile('./' + _database):
+        create_db()
+    add_control(_control_id, _status)
