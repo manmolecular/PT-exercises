@@ -3,30 +3,44 @@
 from transports import *
 import pytest
 
-def test_get_transport_exc():
-    get_transport('SSH', 'localhost', '22022', 'root', 'pwd')
+SSHdefaults = get_defaults('SSH')
+
+def test_SSH_get_transport_exc():
+    get_transport('SSH', SSHdefaults['host'], SSHdefaults['port'], 
+        SSHdefaults['login'], SSHdefaults['password'])
     get_transport('SSH')
     with pytest.raises(UnknownTransport):
-        get_transport('', 'localhost', '22022', 'root', 'pwd')
+        get_transport('', SSHdefaults['host'], SSHdefaults['port'], 
+            SSHdefaults['login'], SSHdefaults['password'])
 
-def test_init_exc():
-    SSHtransport('localhost', '22022', 'root', 'pwd')
+def test_SSH_init_exc():
+    SSHtransport(SSHdefaults['host'], SSHdefaults['port'], 
+        SSHdefaults['login'], SSHdefaults['password'])
     with pytest.raises(TransportConnectionError):
-        SSHtransport('_unknownhost_', '22022', 'root', 'pwd')
-        SSHtransport('localhost', '_unknownport_', 'root', 'pwd')
-        SSHtransport('localhot', '22022', '_unknownuser_', 'pwd')
-        SSHtransport('localhot', '22022', 'root', '_unknownpass_')
+        SSHtransport('_unknownhost_', SSHdefaults['port'], 
+            SSHdefaults['login'], SSHdefaults['password'])
+        SSHtransport(SSHdefaults['host'], '_unknownport_', 
+            SSHdefaults['login'], SSHdefaults['password'])
+        SSHtransport(SSHdefaults['host'], SSHdefaults['port'], 
+            '_unknownlogin_', SSHdefaults['password'])
+        SSHtransport(SSHdefaults['host'], '_unknownport_', 
+            SSHdefaults['login'], '_unknownpass_')
 
-def test_exec_exc():
-    SSHtransport('localhost', '22022', 'root', 'pwd').exec('ls')
+def test_SSH_exec_exc():
+    SSHtransport(SSHdefaults['host'], SSHdefaults['port'], 
+        SSHdefaults['login'], SSHdefaults['password']).exec('ls')
     with pytest.raises(TransportError):
-        SSHtransport('localhost', '22022', 'root', 'pwd').exec('')
+        SSHtransport(SSHdefaults['host'], SSHdefaults['port'], 
+            SSHdefaults['login'], SSHdefaults['password']).exec('')
 
-def test_get_file_name_exc():
-    SSHtransport('localhost', '22022', 'root', 'pwd').get_file('testfile')
+def test_SSH_get_file_name_exc():
+    SSHtransport(SSHdefaults['host'], SSHdefaults['port'], 
+        SSHdefaults['login'], SSHdefaults['password']).get_file('testfile')
     with pytest.raises(TransportError):
-        SSHtransport('localhost', '22022', 'root', 'pwd').get_file('')
+        SSHtransport(SSHdefaults['host'], SSHdefaults['port'], 
+            SSHdefaults['login'], SSHdefaults['password']).get_file('')
 
-def test_get_file_remote_exc():
+def test_SSH_get_file_remote_exc():
     with pytest.raises(TransportError):
-        SSHtransport('localhost', '22022', 'root', 'pwd').get_file('_unknownfile_')
+       SSHtransport(SSHdefaults['host'], SSHdefaults['port'], 
+            SSHdefaults['login'], SSHdefaults['password']).get_file('_unknownfile_')
