@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # First test - check file existense
-from get_db import *
+from db_handling import *
 from transports import *
 import os.path
 
