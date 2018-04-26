@@ -29,7 +29,7 @@ PT-exercises/src
 - `src/get_db.py` - *Parsing of json configuration file for db*
 - `src/main.py` - *Main module*
 - `src/transports.py` - *SSH transport class*
-- `src/configs` - *Json configs files*
+- `src/configs/` - *Json configs files*
 - `src/scripts/` - *Directory for importing libs*
 - `src/tests/` - *Pytest tests*
 ### Other:  
