@@ -6,7 +6,14 @@ import os.path
 
 _json_db = None
 _db_name = 'configs/controls.json'
-db = sqlite3.connect('database.db')
+
+statuses = {
+        1: 'STATUS_COMPLIANT',
+        2: 'STATUS_NOT_COMPLIANT',
+        3: 'STATUS_NOT_APPLICABLE',
+        4: 'STATUS_ERROR',
+        5: 'STATUS_EXCEPTION'
+    }
 
 def get_full_path():
     my_path = os.path.abspath(os.path.dirname(__file__))
@@ -20,6 +27,7 @@ def get_db():
     return _json_db
 
 def create_db():
+    db = sqlite3.connect('database.db')
     curr = db.cursor()
     curr.execute('''CREATE TABLE if not exists
         control(id INTEGER PRIMARY KEY, descr TEXT)''')
@@ -32,6 +40,8 @@ def create_db():
     db.close()
 
 def add_control(control_id, status):
-    pass
-
-create_db()
+    db = sqlite3.connect('database.db')
+    curr = db.cursor()
+    curr.execute("INSERT INTO scandata(id, descr, status) VALUES(?, ?, ?)", (control_id, 'testme', statuses[status]))
+    db.commit()
+    db.close()
