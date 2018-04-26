@@ -7,15 +7,8 @@ import socket
 import json
 
 # Some helpful dicts for using
-_json_config = get_config()
-_SSHdefaults = {
-        'host': _json_config['host'], 
-        'port':_json_config['transports']['SSH']['port'], 
-        'login':_json_config['transports']['SSH']['login'], 
-        'password':_json_config['transports']['SSH']['password']
-    }
 _get_file_defaults = {
-        'file_name': '',
+        'file_name': 'testfile',
         'remote_path': './',
         'local_path': './'
     }
@@ -80,9 +73,29 @@ class SSHtransport():
         sftp.get(file_remote, file_local)
         sftp.close()
 
+# Get defaults from config file
+def get_defaults(transport_name):
+    _json_config = get_config()
+    return {
+        'host': _json_config['host'], 
+        'port':_json_config['transports'][transport_name]['port'], 
+        'login':_json_config['transports'][transport_name]['login'], 
+        'password':_json_config['transports'][transport_name]['password']
+    }
+
 # Get unique transport of some class
-def get_transport(transport_name, host = _SSHdefaults['host'], port = _SSHdefaults['port'], 
-    login = _SSHdefaults['login'], password = _SSHdefaults['password']):
+def get_transport(transport_name, host = '', port = '', login = '', password = ''):
     if transport_name not in _transport_names:
         raise UnknownTransport({'transport_name':transport_name})
+    
+    default = get_defaults(transport_name)
+    if not host:
+        host = default['host']
+    if not port:
+        port = default['port']
+    if not login:
+        login = default['login']
+    if not password:
+        password = default['password']
+
     return globals()[_transport_names[transport_name]](host, port, login, password)
