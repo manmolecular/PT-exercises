@@ -5,19 +5,17 @@ from transports import *
 import os.path
 
 _database = 'database.db'
-_file_name = 'testfile'
+_file_name = 'te1stfile'
 _status = None
 _control_id = 0
 
+_status = 1
 try:
-    SSHtransport = get_transport('SSH')
-except:
+    get_transport('SSH').get_file(_file_name)
+except TransportUnknown:
     _status = 4
-try:
-    SSHtransport.get_file(_file_name)
-    _status = 1
-except:
-    _status = 2
+except TransportIOError:
+     _status = 2
 
 def main():
     if not os.path.isfile('./' + _database):
