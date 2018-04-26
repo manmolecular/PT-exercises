@@ -23,7 +23,7 @@ def test_exec_exc():
         SSHtransport('localhost', '22022', 'root', 'pwd').exec('')
 
 def test_get_file_name_exc():
-    SSHtransport('localhost', '22022', 'root', 'pwd').get_file('getme')
+    SSHtransport('localhost', '22022', 'root', 'pwd').get_file('testfile')
     with pytest.raises(TransportError):
         SSHtransport('localhost', '22022', 'root', 'pwd').get_file('')
 
