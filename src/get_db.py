@@ -8,13 +8,13 @@ _json_db = None
 _db_contest = 'configs/controls.json'
 _db_name = 'database.db'
 
-statuses = {
-        1: 'STATUS_COMPLIANT',
-        2: 'STATUS_NOT_COMPLIANT',
-        3: 'STATUS_NOT_APPLICABLE',
-        4: 'STATUS_ERROR',
-        5: 'STATUS_EXCEPTION'
-    }
+statuses = dict(enumerate(
+    ["STATUS_COMPLIANT",
+    "STATUS_NOT_COMPLIANT",
+    "STATUS_NOT_APPLICABLE",
+    "STATUS_ERROR",
+    "STATUS_EXCEPTION"]
+    ,1))
 
 def get_database():
     db = sqlite3.connect(_db_name)
