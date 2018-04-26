@@ -22,7 +22,7 @@ class TransportError(Exception):
         Exception.__init__(self, 'TransportError {}'.format(error_args))
         self.error_args = error_args
 
-class UnknownTransport(TransportError):
+class TransportUnknown(TransportError):
     def __init__(self, error_args):
         TransportError.__init__(self, error_args)
         self.error_args = error_args
@@ -31,6 +31,12 @@ class TransportConnectionError(TransportError):
     def __init__(self, error_args):
         TransportError.__init__(self, error_args)
         self.error_args = error_args
+
+class TransportIOError(TransportError):
+    def __init__(self, error_args):
+        TransportError.__init__(self, error_args)
+        self.error_args = error_args
+
 
 # SSH transport class
 class SSHtransport():
@@ -68,8 +74,10 @@ class SSHtransport():
         sftp = self.client.open_sftp()
         try:
             sftp.stat(file_remote)
-        except:
-            raise TransportError('file doesnt exist')
+        except paramiko.SSHException:
+            raise TransportConnectionError('paramiko: SSHException')
+        except IOError:
+            raise TransportIOError('file doesnt exist')
         sftp.get(file_remote, file_local)
         sftp.close()
 
@@ -86,7 +94,7 @@ def get_defaults(transport_name):
 # Get unique transport of some class
 def get_transport(transport_name, host = '', port = '', login = '', password = ''):
     if transport_name not in _transport_names:
-        raise UnknownTransport({'transport_name':transport_name})
+        raise TransportUnknown({'transport_name':transport_name})
     
     default = get_defaults(transport_name)
     if not host:
