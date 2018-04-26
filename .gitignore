@@ -1,5 +1,6 @@
 # My files
 src/tests/getme
+src/tests/testfile
 src/tests/database.db
 src/getme
 src/database.db
