@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # Main module for scripts calling
 from transports import *
+from get_db import *
 import os
 import importlib
 
@@ -14,11 +15,6 @@ def import_scripts():
 
 def main():
     import_scripts()
-
-    base_client = get_transport('SSH')
-    base_client.exec('ls -a')
-    print(base_client.exec('ls -a'))
-    #base_client.get_file('getme')
 
 if __name__ == "__main__":
     main()
