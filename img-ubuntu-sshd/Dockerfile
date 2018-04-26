@@ -6,8 +6,8 @@ RUN echo 'root:pwd' | chpasswd
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 # Add file for tests
-RUN touch /root/getme
-RUN echo "testfile" >> /root/getme
+RUN touch /root/testfile
+RUN echo "testfile" >> /root/testfile
 
 # SSH login fix. Otherwise user is kicked off after login
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
