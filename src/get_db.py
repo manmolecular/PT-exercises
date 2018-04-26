@@ -42,6 +42,12 @@ def create_db():
 def add_control(control_id, status):
     db = sqlite3.connect('database.db')
     curr = db.cursor()
-    curr.execute("INSERT INTO scandata(id, descr, status) VALUES(?, ?, ?)", (control_id, 'testme', statuses[status]))
+    descr = str(curr.execute("SELECT descr FROM control WHERE id = ?", 
+        str(control_id)).fetchone())[2:-3]
+
+    if not curr.execute("SELECT id FROM scandata WHERE id = ?", str(control_id)).fetchone():
+        curr.execute("INSERT INTO scandata(id, descr, status) VALUES(?, ?, ?)", 
+            (control_id, descr, statuses[status]))
+
     db.commit()
     db.close()
