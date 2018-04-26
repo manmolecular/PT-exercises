@@ -5,7 +5,8 @@ import sqlite3
 import os.path
 
 _json_db = None
-_db_name = 'configs/controls.json'
+_db_contest = 'configs/controls.json'
+_db_name = 'database.db'
 
 statuses = {
         1: 'STATUS_COMPLIANT',
@@ -15,9 +16,12 @@ statuses = {
         5: 'STATUS_EXCEPTION'
     }
 
+def get_db():
+    return sqlite3.connect(_db_name)
+
 def get_full_path():
     my_path = os.path.abspath(os.path.dirname(__file__))
-    return os.path.join(my_path, _db_name)
+    return os.path.join(my_path, _db_contest)
 
 def get_db():
     global _json_db
@@ -27,7 +31,7 @@ def get_db():
     return _json_db
 
 def create_db():
-    db = sqlite3.connect('database.db')
+    db = get_db()
     curr = db.cursor()
     curr.execute('''CREATE TABLE if not exists
         control(id INTEGER PRIMARY KEY, descr TEXT)''')
@@ -40,7 +44,7 @@ def create_db():
     db.close()
 
 def add_control(control_id, status):
-    db = sqlite3.connect('database.db')
+    db = get_db()
     curr = db.cursor()
     descr = str(curr.execute("SELECT descr FROM control WHERE id = ?", 
         str(control_id)).fetchone())[2:-3]
