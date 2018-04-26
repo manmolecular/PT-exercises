@@ -9,7 +9,7 @@ def test_SSH_get_transport_exc():
     get_transport('SSH', SSHdefaults['host'], SSHdefaults['port'], 
         SSHdefaults['login'], SSHdefaults['password'])
     get_transport('SSH')
-    with pytest.raises(UnknownTransport):
+    with pytest.raises(TransportUnknown):
         get_transport('', SSHdefaults['host'], SSHdefaults['port'], 
             SSHdefaults['login'], SSHdefaults['password'])
 
