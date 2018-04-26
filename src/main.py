@@ -11,7 +11,7 @@ _scriptdir = 'scripts'
 def import_scripts():
     for file in os.listdir('./' + _scriptdir):
             if file.endswith('.py') and file != '__init__.py':
-                importlib.import_module(_scriptdir + '.' + file[:-3])
+                importlib.import_module(_scriptdir + '.' + file[:-3]).main()
 
 def main():
     import_scripts()
