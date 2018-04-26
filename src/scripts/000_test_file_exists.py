@@ -16,5 +16,6 @@ try:
 except:
     _status = 2
 
-create_db()
-add_control(000, _status)
+def main():
+    create_db()
+    add_control(000, _status)
