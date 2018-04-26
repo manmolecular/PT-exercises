@@ -33,9 +33,9 @@ def get_db():
 def create_db():
     db = get_db()
     curr = db.cursor()
-    curr.execute('''CREATE TABLE if not exists
+    curr.execute('''CREATE TABLE if NOT EXISTS
         control(id INTEGER PRIMARY KEY, descr TEXT)''')
-    curr.execute('''CREATE TABLE if not exists
+    curr.execute('''CREATE TABLE if NOT EXISTS
         scandata(id INTEGER PRIMARY KEY, descr TEXT, status TEXT)''')
     controls = get_db()
     for string in controls:
