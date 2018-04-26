@@ -16,8 +16,9 @@ statuses = {
         5: 'STATUS_EXCEPTION'
     }
 
-def get_db():
-    return sqlite3.connect(_db_name)
+def get_database():
+    db = sqlite3.connect(_db_name)
+    return db
 
 def get_full_path():
     my_path = os.path.abspath(os.path.dirname(__file__))
@@ -31,7 +32,7 @@ def get_db():
     return _json_db
 
 def create_db():
-    db = get_db()
+    db = get_database()
     curr = db.cursor()
     curr.execute('''CREATE TABLE if NOT EXISTS
         control(id INTEGER PRIMARY KEY, descr TEXT)''')
@@ -44,7 +45,7 @@ def create_db():
     db.close()
 
 def add_control(control_id, status):
-    db = get_db()
+    db = get_database()
     curr = db.cursor()
     descr = str(curr.execute("SELECT descr FROM control WHERE id = ?", 
         str(control_id)).fetchone())[2:-3]
@@ -52,6 +53,5 @@ def add_control(control_id, status):
     if not curr.execute("SELECT id FROM scandata WHERE id = ?", str(control_id)).fetchone():
         curr.execute("INSERT INTO scandata(id, descr, status) VALUES(?, ?, ?)", 
             (control_id, descr, statuses[status]))
-
     db.commit()
     db.close()
