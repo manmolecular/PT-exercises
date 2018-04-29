@@ -33,10 +33,12 @@ def load_db():
 def create_db():
     db = get_db_obj()
     curr = db.cursor()
-    curr.execute('''CREATE TABLE if NOT EXISTS
-        control(id INTEGER PRIMARY KEY, descr TEXT)''')
-    curr.execute('''CREATE TABLE if NOT EXISTS
-        scandata(id INTEGER PRIMARY KEY, descr TEXT, status TEXT)''')
+    curr.execute('''
+        CREATE TABLE IF NOT EXISTS control(id INTEGER PRIMARY KEY, descr TEXT)
+        ''')
+    curr.execute('''
+        CREATE TABLE IF NOT EXISTS scandata(id INTEGER PRIMARY KEY, descr TEXT, status TEXT)
+        ''')
     controls = load_db()
     for cur_control in controls:
         curr.execute("INSERT OR REPLACE INTO control(id, descr) VALUES(?, ?)", (cur_control[0], cur_control[1]))
@@ -46,9 +48,7 @@ def create_db():
 def add_control(control_id, status):
     db = get_db_obj()
     curr = db.cursor()
-    descr = str(curr.execute("SELECT descr FROM control WHERE id = ?", 
-        str(control_id)).fetchone())[2:-3]
-    
+    descr = str(curr.execute("SELECT descr FROM control WHERE id = ?", str(control_id)).fetchone())[2:-3]
     curr.execute("INSERT OR REPLACE INTO scandata(id, descr, status) VALUES(?, ?, ?)", 
             (control_id, descr, _statuses[status]))
     db.commit()
