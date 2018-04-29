@@ -81,6 +81,21 @@ class SSHtransport():
         sftp.get(file_remote, file_local)
         sftp.close()
 
+    def is_exist(self, file_name = _get_file_defaults['file_name'], 
+        remote_path = _get_file_defaults['remote_path'], local_path = _get_file_defaults['local_path']):
+        if not file_name:
+            raise TransportError({'file_name':file_name})
+        file_remote = remote_path + file_name
+        file_local = local_path + file_name
+        sftp = self.client.open_sftp()
+        try:
+            sftp.stat(file_remote)
+        except paramiko.SSHException:
+            raise TransportConnectionError('paramiko: SSHException')
+        except IOError:
+            raise TransportIOError('file doesnt exist')
+        sftp.close()
+
 # Get defaults from config file
 def get_defaults(transport_name):
     _json_config = get_config()
