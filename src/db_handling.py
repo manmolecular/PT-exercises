@@ -39,7 +39,7 @@ def create_db():
         scandata(id INTEGER PRIMARY KEY, descr TEXT, status TEXT)''')
     controls = load_db()
     for cur_control in controls:
-        curr.execute("INSERT INTO control(id, descr) VALUES(?, ?)", (cur_control[0], cur_control[1]))
+        curr.execute("INSERT OR REPLACE INTO control(id, descr) VALUES(?, ?)", (cur_control[0], cur_control[1]))
     db.commit()
     db.close()
 
@@ -48,9 +48,8 @@ def add_control(control_id, status):
     curr = db.cursor()
     descr = str(curr.execute("SELECT descr FROM control WHERE id = ?", 
         str(control_id)).fetchone())[2:-3]
-
-    if not curr.execute("SELECT id FROM scandata WHERE id = ?", str(control_id)).fetchone():
-        curr.execute("INSERT INTO scandata(id, descr, status) VALUES(?, ?, ?)", 
+    
+    curr.execute("INSERT OR REPLACE INTO scandata(id, descr, status) VALUES(?, ?, ?)", 
             (control_id, descr, _statuses[status]))
     db.commit()
     db.close()
