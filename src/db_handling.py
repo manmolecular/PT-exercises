@@ -38,8 +38,8 @@ def create_db():
     curr.execute('''CREATE TABLE if NOT EXISTS
         scandata(id INTEGER PRIMARY KEY, descr TEXT, status TEXT)''')
     controls = load_db()
-    for string in controls:
-        curr.execute("INSERT INTO control(id, descr) VALUES(?, ?)", (string[0], string[1]))
+    for cur_control in controls:
+        curr.execute("INSERT INTO control(id, descr) VALUES(?, ?)", (cur_control[0], cur_control[1]))
     db.commit()
     db.close()
 
