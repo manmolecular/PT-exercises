@@ -16,8 +16,11 @@ def import_scripts():
                 script_id = int(file[0:3])
                 add_control(script_id, status)
 
+def is_db_exist():
+    return os.path.isfile('./' + _database)
+
 def main():
-    if not os.path.isfile('./' + _database):
+    if not is_db_exist():
         create_db()
     import_scripts()
 
