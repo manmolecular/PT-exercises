@@ -4,10 +4,11 @@ from db_handling import *
 from transports import *
 
 _file_name = 'testfile'
+_transport_name = 'SSH'
 
 def main():
     try:
-        get_transport('SSH').get_file(_file_name)
+        get_transport(_transport_name).get_file(_file_name)
     except TransportUnknown:
         return 4
     except TransportIOError:
