@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Create database
+# Create and manage database
 import json
 import sqlite3
 import os.path
@@ -7,8 +7,7 @@ import os.path
 _json_db = None
 _db_contest = 'configs/controls.json'
 _db_name = 'database.db'
-
-statuses = dict(enumerate(
+_statuses = dict(enumerate(
     ["STATUS_COMPLIANT",
     "STATUS_NOT_COMPLIANT",
     "STATUS_NOT_APPLICABLE",
@@ -52,6 +51,6 @@ def add_control(control_id, status):
 
     if not curr.execute("SELECT id FROM scandata WHERE id = ?", str(control_id)).fetchone():
         curr.execute("INSERT INTO scandata(id, descr, status) VALUES(?, ?, ?)", 
-            (control_id, descr, statuses[status]))
+            (control_id, descr, _statuses[status]))
     db.commit()
     db.close()
