@@ -8,7 +8,7 @@ _transport_name = 'SSH'
 
 def main():
     try:
-        get_transport(_transport_name).get_file(_file_name)
+        get_transport(_transport_name).is_exist(_file_name)
     except TransportUnknown:
         return 4
     except TransportIOError:
