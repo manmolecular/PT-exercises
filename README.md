@@ -1,10 +1,10 @@
-# Structure
-
+# Structure  
+## Repo tree  
 ```
 PT-exercises/src
 │   __init__.py
+│   db_handling.py
 │   get_config.py
-│   get_db.py
 │   main.py
 |   transports.py
 |
@@ -15,7 +15,7 @@ PT-exercises/src
 │   
 └─── scripts
 |   │   __init__.py
-|   │   mdl.py
+|   │   000_test_file_exists.py
 |   |   ...
 |
 └─── tests
@@ -23,19 +23,22 @@ PT-exercises/src
     │   test.py
     |   ...
 ```
-
-### Main code:  
+## Files  
+### Main code  
+- `src/db_handling.py` - *Manage all database work on this module (include json parsing)*
 - `src/get_config.py` - *Parsing of json configuration file*
-- `src/get_db.py` - *Parsing of json configuration file for db*
 - `src/main.py` - *Main module*
 - `src/transports.py` - *SSH transport class*
+### Dirs  
 - `src/configs/` - *Json configs files*
 - `src/scripts/` - *Directory for importing libs*
+### Tests  
 - `src/tests/` - *Pytest tests*
-### Other:  
+### Other tools  
 - `img-ubuntu-python` - docker with ubuntu and python3  
-- `img-ubuntu-sshd` - docker with ubuntu and sshd  
-# Build containers
+- `img-ubuntu-sshd` - docker with ubuntu and sshd 
+# Notes  
+## Build containers  
 For python:  
 ```
 cd ./img-ubuntu-python/ && docker build . -t img-ubuntu-python
@@ -44,7 +47,7 @@ For sshd:
 ```
 cd ./img-ubuntu-sshd/ && docker build . -t img-ubuntu-sshd
 ```
-# Run & connect SSH
+## Run & connect SSH  
 Run:
 ```
 docker run -d -p 22022:22 --name cont-ubuntu-sshd img-ubuntu-sshd 
@@ -55,11 +58,11 @@ Connect:
 ssh root@localhost -p 22022
 # password: pwd
 ```
-# Paramiko
+## Paramiko  
 ```
 sudo pip3 install paramiko
 ```
-# Pytest
+## Pytest  
 ```
 pytest main-project/unit_test.py
 ```
